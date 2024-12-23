@@ -1,0 +1,191 @@
+/* Estilo general */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sección del formulario */
+.pedido-section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titulo {
+    text-align: center;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Tabla de productos */
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.tabla-productos thead th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.tabla-productos tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tabla-productos input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+/* Combo de servicios */
+.select-servicios {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 1em;
+}
+
+/* Checkbox de mano de obra */
+.mano-obra {
+    margin-bottom: 20px;
+}
+
+.mano-obra label {
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Botón de envío */
+.btn-enviar {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background-color: #45a049;
+}
+
+/*Estilos para el footer*/
+
+.footer {
+	background-color: #212529;
+	color: #ffffff;
+	padding: 1.5rem 0; /* Reducir el padding general */
+	font-size: 0.9rem; /* Reducir el tamaño de la fuente */
+}
+
+.container-footer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 1.5rem; /* Espaciado reducido entre secciones */
+}
+
+.title-footer {
+	font-size: 1.4rem; /* Reducir el tamaño del título */
+	font-weight: 600;
+	margin-bottom: 0.8rem; /* Reducir espacio inferior */
+	color: #ffc107;
+}
+
+.menu-footer {
+	display: flex;
+	gap: 1.5rem; /* Reducir espacio entre columnas */
+	flex-wrap: wrap;
+}
+
+.contact-info, .information, .my-account, .comments-section, .map-section {
+	flex: 1;
+	min-width: 250px; /* Reducir el ancho mínimo */
+}
+
+.contact-info ul, .information ul {
+	list-style: none;
+	padding: 0;
+}
+
+.contact-info ul li, .information ul li {
+	margin-bottom: 0.3rem; /* Reducir el espacio entre líneas */
+}
+
+.contact-info ul li a, .information ul li a {
+	color: #ffffff;
+	text-decoration: none;
+	transition: color 0.3s;
+}
+
+.contact-info ul li a:hover, .information ul li a:hover {
+	color: #ffc107;
+}
+
+.social-icons span {
+	margin-right: 0.8rem; /* Reducir margen entre íconos */
+	font-size: 1.2rem; /* Reducir tamaño de los íconos */
+	cursor: pointer;
+}
+
+.comments-section .comment-form .form-group {
+	margin-bottom: 0.8rem; /* Reducir el espacio entre campos */
+}
+
+.comment-form label {
+	display: block;
+	font-size: 1rem; /* Reducir tamaño de etiquetas */
+	margin-bottom: 0.3rem; /* Reducir espacio inferior */
+}
+
+.comment-form input, .comment-form textarea {
+	width: 100%;
+	padding: 0.5rem; /* Reducir padding interno */
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 0.9rem; /* Reducir tamaño de la fuente */
+}
+
+.comment-form .btn-submit {
+	background-color: #ffc107;
+	color: #212529;
+	padding: 0.5rem 1rem; /* Reducir tamaño del botón */
+	border: none;
+	border-radius: 4px;
+	font-size: 0.9rem; /* Reducir tamaño de la fuente */
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.comment-form .btn-submit:hover {
+	background-color: #e0a800;
+}
+
+.map iframe {
+	border-radius: 8px;
+	width: 100%; /* Asegura que el mapa se ajuste al ancho del contenedor */
+	height: 200px; /* Reducir altura del mapa */
+}
+

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>VRrectificacion</title>
+		<link rel="stylesheet" href="/static/styles.css" />
+        <link rel="stylesheet" href="/static/pedido.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+	</head>
+	<body>
+		<header>
+			<div class="container-hero">
+				<div class="container hero">
+					<div class="customer-support">
+						<i class="fa-solid fa-headset"></i>
+						<div class="content-customer-support">
+							<span class="text">Soporte al cliente</span>
+							<span class="number">3876-520454</span>
+						</div>
+					</div>
+
+					<div class="container-logo">
+						<i class="fa-solid fa-mug-hot"></i>
+						<h1 class="logo"><a href="/">VRrectificaciones</a></h1>
+					</div>
+
+					<div class="container-user">
+                        <i class="fa-solid fa-user"></i>
+                        <i class="fa-solid fa-basket-shopping" id="cart-icon"></i>
+                        <div class="content-shopping-cart">
+                            <span class="text">Carrito</span>
+                            <!-- Mostrar el número de productos en el carrito -->
+                            <span class="number" id="carrito-cantidad">({{ session.get('carrito', []) | length }})</span>
+                        </div>
+                    </div>
+                    
+                    
+					
+				</div>
+			</div>
+
+			<div class="container-navbar">
+				<nav class="navbar container">
+					<i class="fa-solid fa-bars"></i>
+					<ul class="menu">
+						<li><a href="#">Inicio</a></li>
+						<li><a href="/registro">Registrarse</a></li>
+						<li><a href="#">rectificado-cilindro</a></li>
+						<li><a href="#">rectificado-tapacilindro</a></li>
+						<li><a href="#">rectificado-cigueñal</a></li>
+						<li><a href="#">repuestos</a></li>
+						<li><a href="#">mas</a></li>
+					</ul>
+
+					<form class="search-form">
+						<input type="search" placeholder="Buscar..." />
+						<button class="btn-search">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</form>
+				</nav>
+			</div>
+		</header>
+
+		<section class="pedido-section">
+            <h2 class="titulo">Solicitar Pedido</h2>
+            <form action="/pedido" method="POST" class="formulario-pedido">
+                <!-- Tabla de productos -->
+                <h3>Selecciona Productos</h3>
+                <table id="productos" class="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th>Seleccionar</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr>
+                            <td><input type="checkbox" name="productos" value="{{ producto[0] }}"></td>
+                            <td>{{ producto[1] }}</td>
+                            <td>{{ producto[2] }}</td>
+                            <td>${{ producto[3] }}</td>
+                            <td>{{ producto[4] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn-enviar">Añadir al Carrito</button>
+            </form>
+        
+            <!-- Mostrar Carrito -->
+            <h3>Carrito de Compras</h3>
+            <table class="tabla-carrito">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if productos_seleccionados %}
+                    {% for producto in productos_seleccionados %}
+                    <tr>
+                        <td>{{ producto[1] }}</td>
+                        <td>${{ producto[3] }}</td>
+                        <td><a href="{{ url_for('ver_carrito') }}">Modificar</a></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="3">El carrito está vacío.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            <!-- Opción de mano de obra -->
+            <div class="mano-obra">
+                <label>
+                    <input type="checkbox" name="mano_obra" value="1"> Incluir mano de obra
+                </label>
+            </div>
+        
+            <!-- Botón para realizar pedido -->
+            <form action="/crear_pedido" method="POST">
+                <button type="submit" class="btn-enviar">Realizar Pedido</button>
+            </form>
+        </section>
+        
+        
+        
+
+        <main class="main-content">
+			<section class="container container-features">
+				<div class="card-feature">
+					<i class="fa-solid fa-plane-up"></i>
+					<div class="feature-content">
+						<span>nuestros servicios</span>
+						<p>100% de garantia</p>
+						
+					</div>
+				</div>
+				<div class="card-feature">
+					<i class="fa-solid fa-wallet"></i>
+					<div class="feature-content">
+						<span>envio a toda la zona</span>
+						<p>cadeteria de confianza</p>
+					</div>
+				</div>
+				<div class="card-feature">
+					<i class="fa-solid fa-gift"></i>
+					<div class="feature-content">
+						<span>recibimos todas las tarjetas de credito </span>
+						<p>10% de interes</p>
+					</div>
+				</div>
+				<div class="card-feature">
+					<i class="fa-solid fa-headset"></i>
+					<div class="feature-content">
+						<span>Servicio al cliente 24/7</span>
+						<p>LLámenos 3876-520454</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="container top-categories">
+				<h1 class="heading-1">los mejores servicios</h1>
+				<div class="container-categories">
+					<div class="card-category category-moca">
+						<p>rectificado-cilindro</p>
+						<span>Ver más</span>
+					</div>
+					<div class="card-category category-expreso">
+						<p>rectificado-tapacilindro</p>
+						<span>Ver más</span>
+					</div>
+					<div class="card-category category-capuchino">
+						<p>rectificado-cigueñal</p>
+						<span>Ver más</span>
+					</div>
+				</div>
+			</section>
+
+			<section class="container top-products">
+				<h1 class="heading-1">Mejores Productos</h1>
+
+				<div class="container-options">
+					<span class="active">Destacados</span>
+					<span>Más recientes</span>
+					<span>Mejores Vendidos</span>
+				</div>
+
+				<div class="container-products">
+					<!-- Producto 1 -->
+					<div class="card-product">
+						<div class="container-img">
+							<img src="/static/img/logo5.jpg" alt="logo" />
+							<span class="discount">-13%</span>
+							<div class="button-group">
+								<span>
+									<i class="fa-regular fa-eye"></i>
+								</span>
+								<span>
+									<i class="fa-regular fa-heart"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-code-compare"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-card-product">
+							<div class="stars">
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-regular fa-star"></i>
+							</div>
+							<h3> PRODUCTOS </h3>
+							<span class="add-cart">
+								<i class="fa-solid fa-basket-shopping"></i>
+							</span>
+							<p class="price"> <span></span></p>
+						</div>
+					</div>
+					<!-- Producto 2 -->
+					<div class="card-product">
+						<div class="container-img">
+							<img
+								src="/static/img/Piston.png"
+								alt="kit piston.jpg"
+							/>
+							<span class="discount"></span>
+							<div class="button-group">
+								<span>
+									<i class="fa-regular fa-eye"></i>
+								</span>
+								<span>
+									<i class="fa-regular fa-heart"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-code-compare"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-card-product">
+							<div class="stars">
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-regular fa-star"></i>
+								<i class="fa-regular fa-star"></i>
+							</div>
+							<h3> Kit Piston Yamasida</h3>
+							<span class="add-cart">
+								<i class="fa-solid fa-basket-shopping"></i>
+							</span>
+							<p class="price">$22000<span></span></p>
+						</div>
+					</div>
+					<!--  -->
+					<div class="card-product">
+						<div class="container-img">
+							<img
+								src="/static/img/valvulas.png"
+								alt="kitvalvulas"
+							/>
+							<div class="button-group">
+								<span>
+									<i class="fa-regular fa-eye"></i>
+								</span>
+								<span>
+									<i class="fa-regular fa-heart"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-code-compare"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-card-product">
+							<div class="stars">
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+							</div>
+							<h3> Kit Valvulas</h3>
+							<span class="add-cart">
+								<i class="fa-solid fa-basket-shopping"></i>
+							</span>
+							<p class="price">$3.20</p>
+						</div>
+					</div>
+					<!--  -->
+					<div class="card-product">
+						<div class="container-img">
+							<img src="/static/img/bielajpg" alt="Cafe Helado" />
+							<div class="button-group">
+								<span>
+									<i class="fa-regular fa-eye"></i>
+								</span>
+								<span>
+									<i class="fa-regular fa-heart"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-code-compare"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-card-product">
+							<div class="stars">
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-solid fa-star"></i>
+								<i class="fa-regular fa-star"></i>
+							</div>
+							<h3>Biela</h3>
+							<span class="add-cart">
+								<i class="fa-solid fa-basket-shopping"></i>
+							</span>
+							<p class="price">$15000</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="gallery">
+				<img
+					src="/static/img/galeria3.jpg"
+					alt="Gallery Img1"
+					class="gallery-img-1"
+				/><img
+					src="/static/img/GALERIa2.jpg"
+					alt="Gallery Img2"
+					class="gallery-img-2"
+				/><img
+					src="/static/img/galeria3.jpg"
+					alt="Gallery Img3"
+					class="gallery-img-3"
+				/><img
+					src="/static/img/galeria5.jpg"
+					alt="Gallery Img4"
+					class="gallery-img-4"
+				/><img
+					src="/static/img/galeria6.jpg"
+					alt="Gallery Img5"
+					class="gallery-img-5"
+				/>
+			</section>
+
+			
+
+			<section class="container blogs">
+				<h1 class="heading-1">Últimos Blogs</h1>
+
+				<div class="container-blogs">
+					<div class="card-blog">
+						<div class="container-img">
+							<img src="/static/img/kit-piston.jpg" alt="blogs" />
+							<div class="button-group-blog">
+								<span>
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-link"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-blog">
+							<h3>kit piston</h3>
+							<span>23 diciembre 2024</span>
+							<p>
+								rectificado-cilindro+kit piston $36.000
+							</p>
+							<div class="btn-read-more">Leer más</div>
+						</div>
+					</div>
+					<div class="card-blog">
+						<div class="container-img">
+							<img src="/static/img/tapa2.jpg" alt="Imagen Blog 2" />
+							<div class="button-group-blog">
+								<span>
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-link"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-blog">
+							<h3>rectificacion-tapacilindro</h3>
+							<span>23 diciembre 2024</span>
+							<p>
+								rectificado de ascientos tapa cilindro + jgo valvulas
+								+ jgo guia valvulas+ jgo retenes
+							</p>
+							<div class="btn-read-more">Leer más</div>
+						</div>
+					</div>
+					<div class="card-blog">
+						<div class="container-img">
+							<img src="/static/img/cigueñal3" alt="Imagen Blog 3" />
+							<div class="button-group-blog">
+								<span>
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</span>
+								<span>
+									<i class="fa-solid fa-link"></i>
+								</span>
+							</div>
+						</div>
+						<div class="content-blog">
+							<h3>rectificado-cigueñal</h3>
+							<span>23 diciembre 2024</span>
+							<p>
+								rectificado cigueñal + biela
+							</p>
+							<div class="btn-read-more">Leer más</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer">
+            <div class="container container-footer">
+                <div class="menu-footer">
+                    <!-- Información de Contacto -->
+                    <div class="contact-info">
+                        <p class="title-footer">Información de Contacto</p>
+                        <ul>
+                            <li>Dirección: Belgrano este N°225</li>
+                            <li>Teléfono: 3876-520454</li>
+                            <li>Fax: 08080808</li>
+                            <li>Email: vrrectificaciones@gmail.com</li>
+                        </ul>
+                        <div class="social-icons">
+                            <span class="facebook"><i class="fa-brands fa-facebook"></i></span>
+                            <span class="twitter"><i class="fa-brands fa-twitter"></i></span>
+                            <span class="youtube"><i class="fa-brands fa-youtube"></i></span>
+                            <span class="pinterest"><i class="fa-brands fa-pinterest-p"></i></span>
+                            <span class="instagram"><i class="fa-brands fa-instagram"></i></span>
+                        </div>
+                    </div>
+        
+                    <!-- Información -->
+                    <div class="information">
+                        <p class="title-footer">Información</p>
+                        <ul>
+                            <li><a href="#">Acerca de Nosotros</a></li>
+                            <li><a href="#">Términos y Condiciones</a></li>
+                            <li><a href="#">Contáctanos</a></li>
+                        </ul>
+                    </div>
+        
+                    <!-- Mi cuenta -->
+                    <div class="my-account">
+                        <p class="title-footer">Mi cuenta</p>
+                        <ul>
+                            <li><a href="#">Mi Cuenta</a></li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <!-- Nueva Sección: Formulario de Comentarios -->
+                <div class="comments-section">
+                    <p class="title-footer">Deja un Comentario</p>
+                    <form action="/guardar_comentario" method="post" class="comment-form">
+                        <div class="form-group">
+                            <label for="name">Nombre y Apellido</label>
+                            <input type="text" id="name" name="name" placeholder="Ingresa tu nombre y apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Escribe tu mensaje aquí" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar Comentario</button>
+                    </form>
+                </div>
+        
+                <!-- Nueva Sección: Mapa de Ubicación -->
+                <div class="map-section">
+                    <p class="title-footer">Nuestra Ubicación</p>
+                    <div class="map">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.1508615872016!2d-65.4701751251294!3d-25.494394556622325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x941bc84ebee3c5b1%3A0x80215c4349c6c817!2sBelgrano%20Este%20225%2C%20Met%C3%A1n%2C%20Salta!5e0!3m2!1ses-419!2sar!4v1682203145105!5m2!1ses-419!2sar" 
+                            width="100%" 
+                            height="250" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+
+	
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Obtener el icono del carrito y el contador
+                const cartIcon = document.getElementById('cart-icon');
+                const cartCount = document.getElementById('cart-count');
+        
+                // Actualizar el número de productos en el carrito
+                function updateCartCount() {
+                    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                    cartCount.textContent = `(${carrito.length})`;  // Actualiza el contador en el icono
+                }
+        
+                // Actualizar la tabla de productos seleccionados
+                function updateCartTable() {
+                    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                    const tableBody = document.querySelector('#productos tbody');
+                    tableBody.innerHTML = '';  // Limpiar la tabla antes de actualizar
+        
+                    if (carrito.length === 0) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="5">No hay productos seleccionados</td>';
+                        tableBody.appendChild(row);
+                    } else {
+                        carrito.forEach(producto_id => {
+                            fetch(`/producto/${producto_id}`)  // Asegúrate de que esta ruta esté correctamente definida
+                                .then(response => response.json())
+                                .then(producto => {
+                                    const row = document.createElement('tr');
+                                    row.innerHTML = `
+                                        <td><input type="checkbox" name="productos" value="${producto.idproducto}" checked></td>
+                                        <td>${producto.nombre}</td>
+                                        <td>${producto.descripcion}</td>
+                                        <td>$${producto.precio}</td>
+                                        <td>${producto.stock}</td>
+                                    `;
+                                    tableBody.appendChild(row);
+                                })
+                                .catch(error => console.log('Error al obtener el producto:', error));
+                        });
+                    }
+                }
+        
+                // Actualizar el carrito y la tabla cuando se haga clic en el icono
+                cartIcon.addEventListener('click', function () {
+                    updateCartTable();  // Actualiza la tabla cuando se hace clic en el carrito
+                });
+        
+                // Inicializa la tabla y el contador al cargar la página
+               
+            });
+        </script>
+        
+        <!-- FontAwesome Script -->
+        <script src="https://kit.fontawesome.com/81581fb069.js" crossorigin="anonymous"></script>
+        
+            
+	</body>
+</html>

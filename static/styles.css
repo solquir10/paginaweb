@@ -1071,4 +1071,279 @@ html {
 	.content p{
 		font-size: 1.6rem;
 	}
+
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+	--primary-color: #f50808;
+	--background-color: #fafafa;
+	--secondary-color: #ffc107;
+	--text-color: #333;
+	--dark-color: #212529;
+	--hover-effect: rgba(0, 0, 0, 0.1);
+}
+
+html {
+	font-size: 62.5%;
+	font-family: 'Poppins', sans-serif;
+	scroll-behavior: smooth;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* ********************************** */
+/*             UTILIDADES             */
+/* ********************************** */
+.container {
+	max-width: 120rem;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.heading-1 {
+	text-align: center;
+	font-weight: 600;
+	font-size: 3.6rem;
+	color: var(--primary-color);
+	text-transform: uppercase;
+	position: relative;
+	overflow: hidden;
+}
+
+.heading-1::before {
+	content: '';
+	position: absolute;
+	width: 50%;
+	height: 4px;
+	background-color: var(--secondary-color);
+	bottom: -10px;
+	left: 25%;
+	animation: slideIn 1s ease-out;
+}
+
+/* Animations */
+@keyframes slideIn {
+	0% {
+		width: 0;
+		left: 50%;
+	}
+	100% {
+		width: 50%;
+		left: 25%;
+	}
+}
+
+/* ********************************** */
+/*               HEADER               */
+/* ********************************** */
+.container-hero {
+	background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+	padding: 2rem 0;
+	color: var(--dark-color);
+	box-shadow: 0 4px 6px var(--hover-effect);
+}
+
+.hero {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+	flex-wrap: wrap;
+	animation: fadeIn 1s ease-in-out;
+}
+
+.customer-support i {
+	font-size: 3.5rem;
+	animation: bounce 2s infinite;
+	color: var(--secondary-color);
+}
+
+.container-logo h1 a {
+	text-decoration: none;
+	color: var(--dark-color);
+	font-size: 4rem;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+}
+
+/* Animations */
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {
+		transform: translateY(0);
+	}
+	40% {
+		transform: translateY(-10px);
+	}
+	60% {
+		transform: translateY(-5px);
+	}
+}
+
+/* ************* NAVBAR ************* */
+.container-navbar {
+	background: var(--primary-color);
+	padding: 1.5rem 0;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	transition: all 0.3s ease;
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu {
+	display: flex;
+	gap: 3rem;
+}
+
+.menu a {
+	text-decoration: none;
+	font-size: 1.6rem;
+	color: var(--dark-color);
+	font-weight: 600;
+	text-transform: uppercase;
+	position: relative;
+	transition: color 0.3s ease;
+}
+
+.menu a:hover {
+	color: #fff;
+}
+
+.menu a::after {
+	content: '';
+	width: 1.5rem;
+	height: 3px;
+	background-color: #fff;
+	position: absolute;
+	bottom: -5px;
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	transition: all 0.3s ease;
+}
+
+.menu a:hover::after {
+	opacity: 1;
+	width: 50%;
+}
+
+/* Search */
+.search-form {
+	position: relative;
+	display: flex;
+	align-items: center;
+	border: 2px solid var(--secondary-color);
+	border-radius: 2rem;
+	background-color: var(--background-color);
+	height: 4.8rem;
+	overflow: hidden;
+	box-shadow: 0 2px 5px var(--hover-effect);
+	transition: all 0.3s ease;
+}
+
+.search-form:hover {
+	box-shadow: 0 4px 10px var(--hover-effect);
+}
+
+.search-form input {
+	outline: none;
+	font-family: inherit;
+	border: none;
+	width: 25rem;
+	font-size: 1.4rem;
+	padding: 0 2rem;
+	color: #777;
+}
+
+.search-form .btn-search {
+	border: none;
+	background-color: var(--primary-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	padding: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.search-form .btn-search:hover {
+	background-color: var(--secondary-color);
+}
+
+.btn-search i {
+	font-size: 2rem;
+	color: #fff;
+}
+
+/* ********************************** */
+/*               BANNER               */
+/* ********************************** */
+.banner {
+	background-image: linear-gradient(300deg, var(--primary-color)50%, var(--secondary-color)50%),
+		url('img/logo5.jpg');
+	height: 90rem;
+	background-size: cover;
+	background-position: center;
+	position: relative;
+}
+
+.content-banner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	animation: fadeIn 1s ease-out;
+}
+
+.content-banner h2 {
+	color: #fff;
+	font-size: 4.5rem;
+	font-weight: 600;
+	line-height: 1.2;
+	text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.content-banner a {
+	margin-top: 2rem;
+	text-decoration: none;
+	color: #fff;
+	background-color: var(--secondary-color);
+	display: inline-block;
+	padding: 1.5rem 3rem;
+	text-transform: uppercase;
+	border-radius: 3rem;
+	font-size: 1.6rem;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-banner a:hover {
+	transform: scale(1.1);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+
+	
 }

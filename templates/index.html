@@ -31,12 +31,18 @@
 
 					<div class="container-user">
 						<i class="fa-solid fa-user"></i>
+						<% if (user) { %>
+							<span class="user-name">Usuario: <%= user.name %></span>
+						<% } else { %>
+							<a href="/login">Iniciar sesión</a>
+						<% } %>
 						<i class="fa-solid fa-basket-shopping"></i>
 						<div class="content-shopping-cart">
 							<span class="text">Carrito</span>
 							<span class="number">(0)</span>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 
@@ -67,7 +73,8 @@
 			<div class="content-banner">
 				<p>VRrectificaciones</p>
 				<h2>100% recomendable <br /> atención peronalizada</h2>
-				<a href="#">solicitar un servicio</a>
+				<a href="/pedido">Solicitar un Servicio</a>
+
 			</div>
 		</section>
 

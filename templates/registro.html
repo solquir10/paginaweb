@@ -14,6 +14,11 @@
                 {% if messages %}
                     {% for category, message in messages %}
                         <div class="alert alert-{{ category }}">{{ message }}</div>
+                        <script>
+                            setTimeout(function() {
+                                window.location.href = "/login"; // Redirigir después de 3 segundos
+                            }, 3000); // 3000 ms = 3 segundos
+                        </script>
                     {% endfor %}
                 {% endif %}
             {% endwith %}
@@ -44,19 +49,33 @@
 
     <!-- Script para validación -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            const passwordInput = document.getElementById('password');
-            const confirmPasswordInput = document.getElementById('confirm_password');
+       document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm_password');
+    const alertDiv = document.createElement('div'); // Crear un contenedor para el mensaje de error
 
-            form.addEventListener('submit', function(event) {
-                // Verificar si las contraseñas coinciden
-                if (passwordInput.value !== confirmPasswordInput.value) {
-                    event.preventDefault(); // Detener el envío del formulario
-                    alert('Las contraseñas no coinciden. Por favor, verifica nuevamente.');
-                }
-            });
-        });
+    alertDiv.classList.add('alert', 'alert-danger', 'mt-2');
+    alertDiv.style.display = 'none'; // Ocultar por defecto
+    confirmPasswordInput.parentElement.appendChild(alertDiv); // Insertar debajo del campo
+
+    form.addEventListener('submit', function(event) {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            event.preventDefault();
+            alertDiv.textContent = 'Las contraseñas no coinciden. Por favor, verifica nuevamente.';
+            alertDiv.style.display = 'block'; // Mostrar mensaje de error
+        } else {
+            alertDiv.style.display = 'none'; // Ocultar mensaje si coinciden
+        }
+    });
+
+    confirmPasswordInput.addEventListener('input', function() {
+        if (passwordInput.value === confirmPasswordInput.value) {
+            alertDiv.style.display = 'none'; // Ocultar mensaje si coinciden mientras se escribe
+        }
+    });
+});
+
     </script>
 </body>
 </html>
