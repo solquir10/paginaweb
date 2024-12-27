@@ -159,5 +159,35 @@ def guardar_comentario():
         cursor.close()
 
 
+@app.route('/guardar_producto', methods=['POST'])
+def guardar_producto():
+    # Obtener los datos del formulario
+    nombre = request.form.get('nombre')
+    descripcion = request.form.get('descripcion')
+    precio= request.form.get('precio')
+    stock= request.form.get('stock')
+
+    if not (nombre and descripcion and precio and stock):
+        return jsonify({'error': 'Todos los campos son obligatorios'}), 400
+
+    # Conexión a la base de datos
+    conn = mysql.connection
+    if not conn:
+        return jsonify({'error': 'Error al conectar a la base de datos'}), 500
+
+    try:
+        cursor = conn.cursor()
+        query = "INSERT INTO producto (nombre, descripcion, precio, stock) VALUES (%s, %s, %s,%s)"
+        cursor.execute(query, (nombre, descripcion, precio, stock))
+        conn.commit()
+        return jsonify({'message': 'Comentario guardado exitosamente'}), 200
+    except Exception as e:
+        print(f"Error al insertar en la base de datos: {e}")
+        return jsonify({'error': 'Error al guardar el comentario'}), 500
+    finally:
+        cursor.close()
+        return redirect('/productos')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
